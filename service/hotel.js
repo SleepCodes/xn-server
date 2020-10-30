@@ -1,4 +1,4 @@
-const collection = require('../model/city')
+const collection = require('../model/hotel')
 
 async function get (param) {
     let res = await collection.findOne(param)
@@ -6,7 +6,7 @@ async function get (param) {
     if (res) {
         return res
     } else {
-        return 
+        return
     }
 }
 
