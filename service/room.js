@@ -1,8 +1,8 @@
-const collection = require('../model/hotel')
+const collection = require('../model/room')
+const mongoose = require('mongoose')
 
-async function get (param) {
-    let res = await collection.findOne(param)
-
+async function get (id) {
+    let res = await collection.find({ _id: mongoose.Types.ObjectId(id) })
     if (res) {
         return res
     } else {
