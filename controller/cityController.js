@@ -50,22 +50,19 @@ async function joinTest(ctx) {
 	const req = ctx.request
 	let param = req.query
 	let res = await chinaDistData.search(param)
-	console.log('res: ', res)
-
-    ctx.body = {
-        code: 200,
-        message: '查询成功',
-        data: res,
-        success: true
-    }
-}
-
-async function GetCounts(code) {
-	let temp = await hotelModel.get({ areaCode: code })
-	if (temp) {
-		return temp.hotels.length
+	if (res) {
+		ctx.body = {
+			code: 200,
+			message: '查询成功',
+			data: res,
+			success: true
+		}
 	} else {
-		return 0
+		ctx.body = {
+			code: 200,
+			message: '查询失败',
+			success: false
+		}
 	}
 }
 

@@ -14,48 +14,115 @@ async function search(param) {
 	]
 
 	if (special.indexOf(province) > -1) {
-		let res = await collection.aggregate([{$match: {
-            name:province
-          }}, {$project: {
-            sub:1,
-            _id:0
-          }}, {$unwind: {
-            path: '$sub'
-          }}, {$replaceRoot: {
-            newRoot: '$sub'
-          }}, {
-            $lookup: {
-                from: 'hotels',
-                localField: 'code',
-                foreignField: 'areacode',
-                as: 'hotels'
-            }
-        }])
+		let res = await collection.aggregate([
+			{
+				$match: {
+					name: province
+				}
+			},
+			{
+				$project: {
+					sub: 1,
+					_id: 0
+				}
+			},
+			{
+				$unwind: {
+					path: '$sub'
+				}
+			},
+			{
+				$replaceRoot: {
+					newRoot: '$sub'
+				}
+			},
+			{
+				$lookup: {
+					from: 'hotels',
+					localField: 'code',
+					foreignField: 'areacode',
+					as: 'hotels'
+				}
+			},
+			{
+				$unwind: {
+					path: '$hotels',
+					preserveNullAndEmptyArrays: true
+				}
+			},
+			{
+				$project: {
+					'hotels._id': 0,
+					'hotels.areaCode': 0
+				}
+			}
+		])
 		return res
 	} else {
-		let res = await collection.aggregate([{$match: {
-            name:province
-          }}, {$project: {
-            sub:1,
-            _id:0
-          }}, {$unwind: {
-            path: '$sub'
-          }}, {$match: {
-            'sub.name':city
-          }}, {$replaceRoot: {
-            newRoot: '$sub'
-          }}, {$project: {
-            sub:1
-          }}, {$unwind: {
-            path: '$sub'
-          }}, {$lookup: {
-            from: 'hotels',
-            localField: 'sub.code',
-            foreignField: 'areaCode',
-            as: 'sub.hotels'
-          }}, {$replaceRoot: {
-            newRoot: '$sub'
-          }}])
+		let res = await collection.aggregate([
+			{
+				$match: {
+					name: province
+				}
+			},
+			{
+				$project: {
+					sub: 1,
+					_id: 0
+				}
+			},
+			{
+				$unwind: {
+					path: '$sub'
+				}
+			},
+			{
+				$match: {
+					'sub.name': city
+				}
+			},
+			{
+				$replaceRoot: {
+					newRoot: '$sub'
+				}
+			},
+			{
+				$project: {
+					sub: 1
+				}
+			},
+			{
+				$unwind: {
+					path: '$sub'
+				}
+			},
+			{
+				$replaceRoot: {
+					newRoot: '$sub'
+				}
+			},
+			{
+				$lookup: {
+					from: 'hotels',
+					localField: 'code',
+					foreignField: 'areaCode',
+					as: 'hotels'
+				}
+			},
+			{
+				$unwind: {
+					path: '$hotels',
+					preserveNullAndEmptyArrays: true
+				}
+			},
+			{
+				$project: {
+					'hotels._id': 0,
+					'hotels.areaCode': 0
+				}
+			}
+		])
+		console.log(res)
 		return res
 	}
 }
