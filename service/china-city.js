@@ -1,5 +1,6 @@
 const collection = require('../model/china-dis-data')
 
+// param: {province:'浙江省',city:'嘉兴市'}
 async function search(param) {
 	let { province, city } = param
 	let special = [
@@ -12,15 +13,50 @@ async function search(param) {
 		'澳门特别行政区'
 	]
 
-	let res = await collection.findOne({ name: province })
-	if (res) {
-		if (special.indexOf(province) > -1) {
-			return res
-		} else {
-			return res.sub.filter((item) => item.name === city)[0]
-		}
+	if (special.indexOf(province) > -1) {
+		let res = await collection.aggregate([{$match: {
+            name:province
+          }}, {$project: {
+            sub:1,
+            _id:0
+          }}, {$unwind: {
+            path: '$sub'
+          }}, {$replaceRoot: {
+            newRoot: '$sub'
+          }}, {
+            $lookup: {
+                from: 'hotels',
+                localField: 'code',
+                foreignField: 'areacode',
+                as: 'hotels'
+            }
+        }])
+		return res
 	} else {
-		return
+		let res = await collection.aggregate([{$match: {
+            name:province
+          }}, {$project: {
+            sub:1,
+            _id:0
+          }}, {$unwind: {
+            path: '$sub'
+          }}, {$match: {
+            'sub.name':city
+          }}, {$replaceRoot: {
+            newRoot: '$sub'
+          }}, {$project: {
+            sub:1
+          }}, {$unwind: {
+            path: '$sub'
+          }}, {$lookup: {
+            from: 'hotels',
+            localField: 'sub.code',
+            foreignField: 'areaCode',
+            as: 'sub.hotels'
+          }}, {$replaceRoot: {
+            newRoot: '$sub'
+          }}])
+		return res
 	}
 }
 

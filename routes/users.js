@@ -10,7 +10,7 @@ const city = require('../controller/cityController')
  *     summary: "根据城市code查询城市信息"
  *     description: 查询城市坐标 # 接口信息
  *     tags: [城市模块] # 模块名称
- *     produces: 
+ *     produces:
  *       - application/json # 响应内容类型
  *     parameters: # 请求参数
  *       - name: areaCode
@@ -46,16 +46,21 @@ router.get('/getCityByCode', city.getCityByCode)
 // #region
 /**
  * @swagger
- * /getCityByName?name={name}: # 接口地址
+ * /getCityByName?province={province}&city={city}: # 接口地址
  *   get: # 请求体
  *     summary: "根据城市名查询城市信息"
  *     description: 查询城市坐标 # 接口信息
  *     tags: [城市模块] # 模块名称
- *     produces: 
+ *     produces:
  *       - application/json # 响应内容类型
  *     parameters: # 请求参数
- *       - name: name
- *         description: 城市名称
+ *       - name: province
+ *         description: 省
+ *         in: path # 参数的位置，可能的值有 "query", "header", "path" 或 "cookie" 没有formData，但是我加了不报错
+ *         required: true
+ *         type: string
+ *       - name: city
+ *         description: 二级区域名
  *         in: path # 参数的位置，可能的值有 "query", "header", "path" 或 "cookie" 没有formData，但是我加了不报错
  *         required: true
  *         type: string
@@ -85,7 +90,7 @@ router.get('/getCityByCode', city.getCityByCode)
 // #endregion
 router.get('/getCityByName', city.getCityByName)
 
-//#region 
+//#region
 /**
  * @swagger
  * /getHotelList?areaCode={areaCode}: # 接口地址
@@ -93,7 +98,7 @@ router.get('/getCityByName', city.getCityByName)
  *     summary: "根据城市code查询城市目录下的酒店列表"
  *     description: 查询城市目录下的酒店列表 # 接口信息
  *     tags: [酒店模块] # 模块名称
- *     produces: 
+ *     produces:
  *       - application/json # 响应内容类型
  *     parameters: # 请求参数
  *       - name: areaCode
@@ -126,7 +131,7 @@ router.get('/getCityByName', city.getCityByName)
 //#endregion
 router.get('/getHotelList', api.getHotelList)
 
-//#region 
+//#region
 /**
  * @swagger
  * /getRooms?id={id}: # 接口地址
@@ -134,7 +139,7 @@ router.get('/getHotelList', api.getHotelList)
  *     summary: "查询酒店客房信息"
  *     description: 查询酒店客房信息 # 接口信息
  *     tags: [酒店模块] # 模块名称
- *     produces: 
+ *     produces:
  *       - application/json # 响应内容类型
  *     parameters: # 请求参数
  *       - name: id
@@ -166,5 +171,7 @@ router.get('/getHotelList', api.getHotelList)
  */
 //#endregion
 router.get('/getRooms', api.getRooms)
+
+router.get('/test', city.joinTest)
 
 module.exports = router
