@@ -1,4 +1,4 @@
-const hotel = require('../service/hotel')
+const hotel = require('../service/wx-hotels')
 const room = require('../service/room')
 
 // 查询code代码城市 所属酒店列表

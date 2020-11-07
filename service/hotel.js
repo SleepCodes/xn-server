@@ -1,19 +1,34 @@
 const collection = require('../model/hotel')
 
-/**
- * 根据三级地名 代码 获得酒店列表
- * @param {Object} param {areaCode:'330483'}
- */
-async function get (param) {
-    let res = await collection.findOne(param)
-    
-    if (res) {
-        return res
-    } else {
-        return
-    }
+async function getAll() {
+	let res = await collection.find()
+	if (res) {
+		return res
+	} else {
+		return
+	}
 }
 
+async function like(obj) {
+	console.log(obj)
+	let param = {}
+	if (obj.name) {
+		param.name = { $regex: obj.name }
+	}
+	if (obj.contact) {
+		param.contact = { $regex: obj.contact }
+	}
+	if (obj.tel) {
+		param.tel = { $regex: obj.tel }
+	}
+	let res = await collection.find(param)
+	if (res) {
+		return res
+	} else {
+		return
+	}
+}
 module.exports = {
-    get
+	getAll,
+	like
 }

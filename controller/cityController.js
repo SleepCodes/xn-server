@@ -1,6 +1,6 @@
 const city = require('../service/city')
 const chinaDistData = require('../service/china-city')
-const hotelModel = require('../service/hotel')
+
 
 // 根据代码查询城市信息 坐标 名称
 async function getCityByCode(ctx) {
