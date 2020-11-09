@@ -91,7 +91,6 @@ router.get('/getCityByCode', city.getCityByCode)
  */
 // #endregion
 router.get('/getCityByName', city.getCityByName)
-
 //#region
 /**
  * @swagger
@@ -132,7 +131,6 @@ router.get('/getCityByName', city.getCityByName)
  */
 //#endregion
 router.get('/getHotelList', api.getHotelList)
-
 //#region
 /**
  * @swagger
@@ -173,7 +171,6 @@ router.get('/getHotelList', api.getHotelList)
  */
 //#endregion
 router.get('/getRooms', api.getRooms)
-
 //#region
 /**
  * @swagger
@@ -186,7 +183,7 @@ router.get('/getRooms', api.getRooms)
  *       - application/json # 响应内容类型
  *     parameters: # 请求参数
  *       - name: param
- *         description: 酒店相关参数 name address contact tel 等
+ *         description: 酒店相关参数
  *         in: body # 参数的位置，可能的值有 "query", "header", "path" 或 "cookie" 没有formData，但是我加了不报错
  *         required: true
  *         type: 'object'
@@ -208,7 +205,7 @@ router.get('/getRooms', api.getRooms)
  *             code:
  *               type: 'number'
  *             data:
- *               type: 'Array'
+ *               type: ''
  *               description: 返回数据
  *             message:
  *               type: 'string'
@@ -224,6 +221,65 @@ router.get('/getRooms', api.getRooms)
 //#endregion
 router.post('/getHotels', hotel.getHotelsByParam)
 
-router.get('/test', city.joinTest)
+//#region
+/**
+ * @swagger
+ * /updateHotelDetail: # 接口地址
+ *   post: # 请求体
+ *     summary: "修改酒店信息"
+ *     description: 修改酒店信息 # 接口信息
+ *     tags: [酒店模块] # 模块名称
+ *     produces:
+ *       - application/json # 响应内容类型
+ *     parameters: # 请求参数
+ *       - name: param
+ *         description: 酒店相关参数
+ *         in: body # 参数的位置，可能的值有 "query", "header", "path" 或 "cookie" 没有formData，但是我加了不报错
+ *         required: true
+ *         type: 'object'
+ *         schema:
+ *           type: 'object'
+ *           properties:
+ *             _id:
+ *               type: 'string'
+ *             account:
+ *               type: 'object'
+ *             address:
+ *               type: 'string'
+ *             children:
+ *               type: 'object'
+ *             contact:
+ *               type: 'string'
+ *             cooperation:
+ *               type: 'string'
+ *             latitude:
+ *               type: 'string'
+ *             longitude:
+ *               type: 'string'
+ *             name:
+ *               type: 'string'
+ *             tel:
+ *               type: 'string'
+ *     responses:
+ *       '200':
+ *         description: Ok
+ *         schema: # 返回体说明
+ *           type: 'object'
+ *           properties:
+ *             code:
+ *               type: 'number'
+ *             message:
+ *               type: 'string'
+ *               description: 消息提示
+ *             success:
+ *               type: 'boolean'
+ *               description: 请求是否成功的标志
+ *       '400':
+ *         description: 请求参数错误
+ *       '404':
+ *         description: not found
+ */
+//#endregion
+router.post('/updateHotelDetail',hotel.update)
 
 module.exports = router
