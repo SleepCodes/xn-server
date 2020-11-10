@@ -1,5 +1,6 @@
-const hotel = require('../service/hotel')
+const hotel = require('../service/wx-hotels')
 const hotelModel = require('../service/hotel')
+
 
 async function getHotelsByParam(ctx) {
 	let { name, contact, tel } = ctx.request.body.params
@@ -43,11 +44,34 @@ async function update(ctx) {
 		ctx.body = {
 			code: 200,
 			msg: '修改失败',
-			success: false
+			success: false  
 		}
 	}
 }
+
+// 查询code代码城市 所属酒店列表
+async function getHotelList (ctx) {
+    const req = ctx.request
+    let param = req.query
+    let res = await hotel.get(param)
+
+    if (res) {
+        ctx.body = {
+            code: 200,
+            message: "查询成功",
+            data: res,
+            success: true
+        }
+    } else {
+        ctx.body = {
+            code: 200,
+            message: "查询失败",
+            success: false
+        }
+    }
+}
 module.exports = {
 	getHotelsByParam,
-	update
+    update,
+    getHotelList
 }
