@@ -45,7 +45,8 @@ async function update(param) {
 				account: param.account,
 				longitude: param.longitude,
 				latitude: param.latitude,
-				children: param.children
+				children: param.children,
+				areaCode: param.areaCode
 			}
 		}
 	)

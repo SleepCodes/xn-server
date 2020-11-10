@@ -6,11 +6,13 @@ async function getLocationByAddress(ctx) {
 	// console.log('请求地址: ', address)
 	let res = await serve.getLocation(address)
 	if (res.data.status === 0) {
-        console.log(res.data)
 		ctx.body = {
 			code: 200,
 			msg: '查询成功',
-			data: res.data.result.location,
+			data: {
+                location:res.data.result.location,
+                areaCode:res.data.result.ad_info.adcode         
+            },
 			success: true
 		}
 	} else {

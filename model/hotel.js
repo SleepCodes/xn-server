@@ -12,7 +12,8 @@ const hotelSchema = new Schema(
 		account: Object, // 后台主账号
 		longitude: Number, // 经度
 		latitude: Number, // 纬度
-		children: Array // 子账号列表
+		children: Array, // 子账号列表
+		areaCode: String //区域代码
 	},
 	{ versionKey: false }
 )
