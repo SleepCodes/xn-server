@@ -13,7 +13,8 @@ const hotelSchema = new Schema(
 		longitude: Number, // 经度
 		latitude: Number, // 纬度
 		children: Array, // 子账号列表
-		areaCode: String //区域代码
+		areaCode: String, //区域代码
+		images: Array  // 展示图片 暂定5张
 	},
 	{ versionKey: false }
 )

@@ -1,8 +1,13 @@
 const router = require('koa-router')()
+
 const api = require('../controller')
+// 区域设置相关
 const city = require('../controller/cityController')
+// 酒店相关
 const hotel = require('../controller/hotelController')
+// 腾讯地图相关
 const qq = require('../controller/qqmapController')
+
 
 // #region
 /**
@@ -286,7 +291,7 @@ router.post('/updateHotelDetail', hotel.update)
 //#region
 /**
  * @swagger
- * location?address={address}: # 接口地址
+ * /location?address={address}: # 接口地址
  *   get: # 请求体
  *     summary: "查询酒店经纬度坐标"
  *     description: 查询酒店经纬度坐标 # 接口信息
@@ -295,7 +300,7 @@ router.post('/updateHotelDetail', hotel.update)
  *       - application/json # 响应内容类型
  *     parameters: # 请求参数
  *       - name: address
- *         description: 酒店详细地址
+ *         description: 详细地址,示例:浙江省桐乡市梧桐街道星湖湾小区1幢1单元
  *         in: path # 参数的位置，可能的值有 "query", "header", "path" 或 "cookie" 没有formData，但是我加了不报错
  *         required: true
  *         type: string
@@ -307,6 +312,7 @@ router.post('/updateHotelDetail', hotel.update)
  *           properties:
  *             code:
  *               type: 'number'
+ *               description: '网络状态'
  *             data:
  *               type: 'object'
  *               description: 返回数据
@@ -323,5 +329,6 @@ router.post('/updateHotelDetail', hotel.update)
  */
 //#endregion
 router.get('/location', qq.getLocationByAddress)
+
 
 module.exports = router

@@ -50,16 +50,27 @@ async function update(param) {
 			}
 		}
 	)
-	console.log('结果', res)
-
 	if (res.nModified === 1) {
 		return true
 	} else {
 		return false
 	}
 }
+// 搜索城市所属酒店列表 返回Array
+async function getListByCode(param) {
+	let res = await collection.aggregate([
+		{
+			$match: {
+				areaCode: param.areaCode
+			}
+		}
+	])
+
+	return res
+}
 module.exports = {
 	getAll,
 	like,
-	update
+	update,
+	getListByCode
 }

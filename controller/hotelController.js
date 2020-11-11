@@ -53,7 +53,7 @@ async function update(ctx) {
 async function getHotelList (ctx) {
     const req = ctx.request
     let param = req.query
-    let res = await hotel.get(param)
+    let res = await hotelModel.getListByCode(param)
 
     if (res) {
         ctx.body = {
@@ -61,7 +61,7 @@ async function getHotelList (ctx) {
             message: "查询成功",
             data: res,
             success: true
-        }
+        }  
     } else {
         ctx.body = {
             code: 200,
