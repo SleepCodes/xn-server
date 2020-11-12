@@ -11,17 +11,14 @@ const { koaSwagger } = require('koa2-swagger-ui')
 const app = new Koa()
 const json = require('koa-json')
 const onerror = require('koa-onerror')
-const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const swagger = require('./util/swagger')
 const koaBody = require('koa-body')
-const KoaStatic = require('koa-static');
 
 const index = require('./routes/index')
 const users = require('./routes/users')
 
-
-app.use(KoaStatic('./'));
+// middlewares
 app.use(swagger.routes(), swagger.allowedMethods())
 
 // error handler
@@ -34,12 +31,7 @@ app.use(
 		}
 	})
 )
-// middlewares
-app.use(
-	bodyparser({
-		enableTypes: ['json', 'form', 'text']
-	})
-)
+
 app.use(json())
 app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))

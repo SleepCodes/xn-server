@@ -1,10 +1,10 @@
 const hotel = require('../service/wx-hotels')
 const hotelModel = require('../service/hotel')
 
-
+// 酒店列表
 async function getHotelsByParam(ctx) {
 	let { name, contact, tel } = ctx.request.body.params
-
+    
 	if (!name && !contact && !tel) {
 		// console.log('参数都为空')
 		// 无参查询 表示查询全部
@@ -28,7 +28,7 @@ async function getHotelsByParam(ctx) {
 			success: true,
 			data: res
 		}
-	}
+    }
 }
 
 async function update(ctx) {
