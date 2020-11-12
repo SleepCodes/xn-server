@@ -31,7 +31,8 @@ async function getHotelsByParam(ctx) {
     }
 }
 
-async function update(ctx) {
+// 修改酒店信息
+async function update(ctx) { 
 	let para = ctx.request.body.params
 	let res = await hotelModel.update(para)
 	if (res) {

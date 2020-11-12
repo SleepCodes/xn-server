@@ -45,7 +45,33 @@ async function uploadFiles(ctx) {
 		}
 	}
 }
+// 文件删除
+async function fileDelete(ctx) {
+	let { _id, name, url } = ctx.request.query
+	fs.unlink(`./public/images/${name}`, (err) => {
+		if (err) {
+			console.log(err)
+			console.log('文件删除失败')
+		}
+	})
+	// 删除文件 之后 需要从数据库中移除
+	let res = await fileServe.remove(_id, url)
+	if (res) {
+		ctx.body = {
+			code: 200,
+			msg: '图片删除成功!',
+			success: true
+		}
+	} else {
+		ctx.body = {
+			code: 200,
+			msg: '图片删除失败!',
+			success: false
+		}
+	}
+}
 
 module.exports = {
-	uploadFiles
+	uploadFiles,
+	fileDelete
 }

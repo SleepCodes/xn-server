@@ -231,7 +231,7 @@ router.post('/getHotels', hotel.getHotelsByParam)
 /**
  * @swagger
  * /updateHotelDetail: # 接口地址
- *   post: # 请求体
+ *   put: # 请求体
  *     summary: "修改酒店信息"
  *     description: 修改酒店信息 # 接口信息
  *     tags: [酒店模块] # 模块名称
@@ -286,7 +286,7 @@ router.post('/getHotels', hotel.getHotelsByParam)
  *         description: not found
  */
 //#endregion
-router.post('/updateHotelDetail', hotel.update)
+router.put('/updateHotelDetail', hotel.update)
 
 //#region
 /**

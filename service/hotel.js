@@ -31,6 +31,7 @@ async function like(obj) {
 
 // 酒店信息 更新
 async function update(param) {
+    console.log(param)
 	let res = await collection.updateOne(
 		{
 			_id: ObjectId(param._id)
@@ -49,7 +50,8 @@ async function update(param) {
 				areaCode: param.areaCode
 			}
 		}
-	)
+    )
+    console.log(res)
 	if (res.nModified === 1) {
 		return true
 	} else {

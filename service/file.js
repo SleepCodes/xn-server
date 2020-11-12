@@ -7,7 +7,9 @@ async function save(url, _id) {
 		{ _id: ObjectId(_id) },
 		{
 			$push: {
-				images: url
+				images: {
+					url: url
+				}
 			}
 		}
 	)
@@ -19,6 +21,25 @@ async function save(url, _id) {
 	}
 }
 
+// 删除记录
+async function remove(id, url) {
+	console.log(id)
+	console.log(url)
+	let res = await FileModel.update(
+		{ _id: ObjectId(id) },
+		{
+			$pull: {
+				images: {
+					url: url
+				}
+			}
+		}
+	)
+
+	return res.nModified === 1
+}
+
 module.exports = {
-	save
+	save,
+	remove
 }
