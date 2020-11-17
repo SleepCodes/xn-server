@@ -8,6 +8,7 @@ const hotel = require('../controller/hotelController')
 // 腾讯地图相关
 const qq = require('../controller/qqmapController')
 
+const wx = require('../controller/wxController')
 
 // #region
 /**
@@ -330,5 +331,6 @@ router.put('/updateHotelDetail', hotel.update)
 //#endregion
 router.get('/location', qq.getLocationByAddress)
 
+router.get('/getAnswer', wx.getAnswer)
 
 module.exports = router
