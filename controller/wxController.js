@@ -8,7 +8,6 @@ async function getAnswer(ctx) {
 
 	const api = new API()
 	let { accessToken } = await api.ensureAccessToken()
-    console.log(accessToken)
 	let customlist = await axios.get(`https://api.weixin.qq.com/cgi-bin/customservice/getkflist?access_token=${accessToken}`)
 
 	console.log(customlist)

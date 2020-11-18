@@ -1,29 +1,33 @@
+const jwt = require('koa-jwt')
+const db = require('../model/user')
+const api = require('../util/JwtToken')
 
-const room = require('../service/room')
+async function login(ctx) {
+	const data = ctx.request.query
+	if (!data.username || !data.password) {
+		ctx.body = {
+			code: 200,
+			success: false,
+			msg: '参数不合法!'
+		}
+		return
+	}
 
+	let res = await db.findOne({
+		username: data.username,
+		password: data.password
+	})
+	if (res) {
 
-// 根据酒店 获得房间类型
-async function getRooms (ctx) {
-    const req = ctx.request
-    let { id } = req.query
-   
-    let res = await room.get(id)
-
-    if (res) {
-        ctx.body = {
-            code: 200,
-            message: "查询成功",
-            data: res,
-            success: true
-        }
-    } else {
-        ctx.body = {
-            code: 200,
-            message: "查询失败",
-            success: false
-        }
-    }
+        
+		ctx.body = {
+			code: 200,
+			success: false,
+			msg: '参数不合法!',
+			data: res
+		}
+	}
 }
 module.exports = {
-    getRooms
+	login
 }

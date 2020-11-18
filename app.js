@@ -17,7 +17,11 @@ const koaBody = require('koa-body')
 
 const index = require('./routes/index')
 const users = require('./routes/users')
+// const koajwt = require('koa-jwt')
 
+// const SECRET = require('./config').JWT_SECRET
+
+// app.use(koajwt({ secret: SECRET })).unless({ path: [/^login/] })
 // middlewares
 app.use(swagger.routes(), swagger.allowedMethods())
 
