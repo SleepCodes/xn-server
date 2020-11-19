@@ -7,8 +7,10 @@ const city = require('../controller/cityController')
 const hotel = require('../controller/hotelController')
 // 腾讯地图相关
 const qq = require('../controller/qqmapController')
-
+// 微信小程序 调用的几个方法
 const wx = require('../controller/wxController')
+// 评论相关操作
+const comment = require('../controller/commentController')
 
 // #region
 /**
@@ -373,4 +375,36 @@ router.get('/location', qq.getLocationByAddress)
 //#endregion
 router.post('/getAnswer', wx.getAnswer)
 
+//#region
+/**
+ * @swagger
+ * /getComments: # 接口地址
+ *   get: # 请求体
+ *     summary: "请求评论列表"
+ *     description: 请求评论列表 # 接口信息
+ *     tags: [评论模块] # 模块名称
+ *     produces:
+ *       - application/json # 响应内容类型
+ *     parameters: # 请求参数
+ *     responses:
+ *       '200':
+ *         description: Ok
+ *         schema: # 返回体说明
+ *           type: 'object'
+ *           properties:
+ *             data:
+ *               type: 'object'
+ *               description: 返回数据
+ *             errCode:
+ *               type: 'number'
+ *               description: 请求状态
+ *       '400':
+ *         description: 请求参数错误
+ *       '404':
+ *         description: not found
+ */
+//#endregion
+router.get('/getComments', comment.get)
+
+router.post('/addComment', comment.add)
 module.exports = router

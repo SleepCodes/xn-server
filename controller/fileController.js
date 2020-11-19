@@ -4,10 +4,11 @@ const path = require('path')
 
 // 文件上传 后台接口
 async function uploadFiles(ctx) {
+    console.log('图片上传')
 	// 单个文件
 	let file = ctx.request.files.file
 	let { _id } = ctx.request.body
-
+    console.log('文件上传',file)
 	// 创建可读流
 	const reader = fs.createReadStream(file.path)
 	// 文件的后缀名
