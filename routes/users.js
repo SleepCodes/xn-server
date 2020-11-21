@@ -1,6 +1,5 @@
 const router = require('koa-router')()
 
-const api = require('../controller')
 // 区域设置相关
 const city = require('../controller/cityController')
 // 酒店相关
@@ -405,6 +404,43 @@ router.post('/getAnswer', wx.getAnswer)
  */
 //#endregion
 router.get('/getComments', comment.get)
-
+  
 router.post('/addComment', comment.add)
+
+//#region
+/**
+ * @swagger
+ * /getOpenID: # 接口地址
+ *   get: # 请求体
+ *     summary: "请求微信openid"
+ *     description: '请求微信openid' # 接口信息
+ *     tags: [微信模块] # 模块名称
+ *     produces:
+ *       - application/json # 响应内容类型
+ *     parameters: # 请求参数
+ *       - name: code
+ *         descript: ''
+ *         in: query
+ *         required: true
+ *         type: string
+ *     responses:
+ *       '200':
+ *         description: Ok
+ *         schema: # 返回体说明
+ *           type: 'object'
+ *           properties:
+ *             data:
+ *               type: 'object'
+ *               description: 返回数据
+ *             errCode:
+ *               type: 'number'
+ *               description: 请求状态
+ *       '400':
+ *         description: 请求参数错误
+ *       '404':
+ *         description: not found
+ */
+//#endregion
+router.get('/getOpenID', wx.getOpenID)
+
 module.exports = router

@@ -1,2 +1,4 @@
 node_modules
 public
+.vscode
+./access_token.txt
