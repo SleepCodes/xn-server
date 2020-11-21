@@ -17,6 +17,7 @@ const koaBody = require('koa-body')
 
 const index = require('./routes/index')
 const users = require('./routes/users')
+const other = require('./routes/other')
 // const koajwt = require('koa-jwt')
 
 // const SECRET = require('./config').JWT_SECRET
@@ -58,7 +59,7 @@ app.use(async (ctx, next) => {
 // routes
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
-
+app.use(other.routes(), other.allowedMethods())
 // error-handling
 app.on('error', (err, ctx) => {
 	console.error('server error', err, ctx)

@@ -1,5 +1,5 @@
 const axios = require('axios')
-const { APPID, APPSECRET } = require('../config')
+const { APPID, APPSECRET } = require('../config').WX
 const fs = require('fs-extra')
 
 class API {
@@ -10,6 +10,11 @@ class API {
 		// 保存access_token
 		this.saveToken = async function (token) {
 			await fs.writeFile('access_token.txt', JSON.stringify(token))
+		}
+		this.getToken = async function () {
+			let res = await fs.readFile('../access_token.txt')
+			console.log(res)
+			return res
 		}
 	}
 
@@ -22,7 +27,7 @@ class API {
 		// 过期时间，因网络延迟等，将实际过期时间提前20秒，以防止临界点
 		const expireTime = Date.now() + (response.data.expires_in - 20) * 1000
 		token.accessToken = response.data.access_token
-        token.expireTime = expireTime
+		token.expireTime = expireTime
 		await this.saveToken(token)
 		return token
 	}

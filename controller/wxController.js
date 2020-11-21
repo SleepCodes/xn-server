@@ -1,11 +1,11 @@
 // 微信模块
 const axios = require('axios')
 const API = require('../util/AccessToken').API
-const { APPID, APPSECRET } = require('../config')
+const { WX } = require('../config')
+const { APPID, APPSECRET } = WX
 
 // TODO
 async function getAnswer(ctx) {
-	// console.log(ctx.request.query)
 	let { question } = ctx.request.query
 
 	const api = new API()
@@ -30,10 +30,9 @@ async function getAnswer(ctx) {
 }
 // 获取openID
 async function getOpenID(ctx) {
-    // console.log()
-    const JSCODE = ctx.request.query.code
-    console.log(JSCODE)
-    return
+	const JSCODE = ctx.request.query.code
+	console.log(JSCODE)
+	return
 	let res = await axios.get(
 		`https://api.weixin.qq.com/sns/jscode2session?appid=${APPID}&secret=${APPSECRET}&js_code=${JSCODE}&grant_type=authorization_code`
 	)

@@ -1,4 +1,5 @@
 node_modules
 public
 .vscode
-./access_token.txt
+access_token.txt
+qiniu_token.txt
